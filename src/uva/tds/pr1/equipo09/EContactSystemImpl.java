@@ -4,43 +4,37 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.parsers.SAXParser;
 
-import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
-import uva.tds.pr1.Contact;
-import uva.tds.pr1.EnumKindOfPhone;
-import uva.tds.pr1.Group;
-import uva.tds.pr1.Person;
+import uva.tds.pr1.EContactSystemInterface;
 
-public class EContactSystemImpl implements uva.tds.pr1.EContactSystemInterface {
+public class EContactSystemImpl implements EContactSystemInterface {
+	
 	private FileReader input;
 	private InputSource source;
-	private DocumentBuilderFactory domParserFactory;
-	private DocumentBuilder parser;
-	private Document doc;
+	private SAXParserFactory factory = SAXParserFactory.newInstance();
+	private SAXParser parser;
 	
-	private boolean loaded = false;
-	private boolean modified = false;
-
 	@Override
-	public void loadFrom(Path pathToXML) throws ParserConfigurationException, SAXException, IOException {
+	public void loadFrom(Path pathToXML) {
 		// TODO Auto-generated method stub
-		domParserFactory = DocumentBuilderFactory.newInstance();
-		domParserFactory.setValidating(true);
-		parser = domParserFactory.newDocumentBuilder();
-		
-		input = new FileReader(pathToXML.toString());
-		source = new InputSource(input);
-		
-		doc = parser.parse(source);
-		loaded = true;
+		try {
+			input = new FileReader(pathToXML.toString());
+			source = new InputSource(input);
+			factory.setValidating(true);
+			parser = factory.newSAXParser();
+			parser.parse(source, new MainHandler());		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -52,7 +46,7 @@ public class EContactSystemImpl implements uva.tds.pr1.EContactSystemInterface {
 	@Override
 	public boolean isXMLLoaded() {
 		// TODO Auto-generated method stub
-		return loaded;
+		return false;
 	}
 
 	@Override
@@ -109,4 +103,5 @@ public class EContactSystemImpl implements uva.tds.pr1.EContactSystemInterface {
 		
 	}
 
+	
 }
