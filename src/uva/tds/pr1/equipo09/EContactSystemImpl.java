@@ -27,6 +27,7 @@ public class EContactSystemImpl implements uva.tds.pr1.EContactSystemInterface {
 	private Document doc;
 	
 	private boolean loaded = false;
+	private boolean modified = false;
 
 	@Override
 	public void loadFrom(Path pathToXML) throws ParserConfigurationException, SAXException, IOException {
