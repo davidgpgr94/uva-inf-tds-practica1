@@ -5,15 +5,25 @@
    <apellidos>Parda</apellidos>
    <nombre>Dani</nombre>
    <email>emailDani</email>
+   <email>emailDani2</email>
    <telef tipo="MovilPersonal">965</telef>
+   
+   <telef tipo="MovilTrabajo">9652365</telef>
  </persona>
  <persona alias="PacoPorras">
    <apellidos>Martin</apellidos>
    <nombre>Paco</nombre>
    <email>emailPaco</email>
-   <telef tipo="MovilPersonal">978</telef>
+   <telef tipo="MovilTrabajo">978</telef>
  </persona>
  <grupo gNombre="Amigos">
      <miembro alias="Danielin"/>
  </grupo>
+  <persona alias="Manolin">
+   <apellidos>Gomez</apellidos>
+   <nombre>Manomano</nombre>
+   <email>emailPaco</email>
+   <telef>676</telef>
+ </persona>
 </libreta>
+

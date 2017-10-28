@@ -22,6 +22,8 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	private SAXParserFactory factory;
 	private SAXParser parser;
 	
+	private Libreta libreta;
+	
 	public  EContactSystemImpl() {
 		XmlLoaded=false;
 	}
@@ -35,8 +37,29 @@ public class EContactSystemImpl implements EContactSystemInterface {
 			source=  new InputSource(input);
 			factory= SAXParserFactory.newInstance();
 			factory.setValidating(true);
-			 parser= factory.newSAXParser();
-			parser.parse(source,(DefaultHandler) null);
+			parser= factory.newSAXParser();
+			MainHandler handler= new MainHandler();
+			parser.parse(source,handler);
+			libreta=handler.getLibreta();
+			
+			
+			/*prueba*/
+			for (Contact con : libreta.getContactos().values()) {
+				if(con instanceof Person){
+					
+					System.out.println(1+""+((Person)con).getAlias());
+					for (int i = 0; i < ((Person)con).getEmails().length; i++) {
+						System.out.println( ((Person)con).getEmails()[i]);
+					}
+					
+					for (EnumKindOfPhone en:((Person)con).getTelefonos().values()) {
+						System.out.println( en);
+					}
+					
+				}
+			}
+			
+			
 			XmlLoaded=true;
 			
 		} catch (FileNotFoundException e) {

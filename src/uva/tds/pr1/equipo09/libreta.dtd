@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <!ELEMENT libreta (persona|grupo)*>
- <!ELEMENT usuario (apellidos?,nombre,email+,telef*)>
+ <!ELEMENT libreta (persona|grupo)*>	
+ <!ELEMENT persona (apellidos?,nombre,email+,telef*)>
  <!ELEMENT apellidos (#PCDATA)>
  <!ELEMENT nombre (#PCDATA)>
  <!ELEMENT email (#PCDATA)>
