@@ -2,6 +2,7 @@ package uva.tds.pr1.equipo09;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 public class Person extends Contact{
 	private String nombre;
@@ -12,6 +13,8 @@ public class Person extends Contact{
 	public Person(String alias, String nombre, String mail) {
 		super(alias);
 		assert alias != null && nombre != null && mail != null;
+		emails = new ArrayList<String>();
+		telefonos = new HashMap<String, EnumKindOfPhone>();
 		setNombre(nombre);
 		añadirEmail(mail);
 	}
@@ -23,6 +26,8 @@ public class Person extends Contact{
 	
 	public Person(String alias, String nombre, String[] emails) {
 		super(alias);
+		this.emails = new ArrayList<String>();
+		telefonos = new HashMap<String, EnumKindOfPhone>();
 		setNombre(nombre);
 		añadirEmails(emails);
 	}
