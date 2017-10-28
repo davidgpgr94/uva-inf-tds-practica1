@@ -30,6 +30,7 @@ public class MainHandler extends DefaultHandler{
 		// TODO Auto-generated method stub
 		super.startDocument();
 		emails= new ArrayList<>();
+		telefonos= new HashMap<>();
 	}
 	
 	@Override
@@ -58,6 +59,7 @@ public class MainHandler extends DefaultHandler{
 			break;
 		case "telef":
 			tipo= EnumKindOfPhone.valueOf(attributes.getValue(0));
+			
 			siTelefono=true;
 			break;
 			
@@ -123,7 +125,7 @@ public class MainHandler extends DefaultHandler{
 		}
 		if(siTelefono){ 
 			String telefono= new String(ch, start, length);
-	
+			telefonos.put(telefono, tipo);
 		}
 	}
 	

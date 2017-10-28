@@ -8,7 +8,7 @@
    <email>emailDani2</email>
    <telef tipo="MovilPersonal">965</telef>
    
-   <telef tipo="MovilTrabajo">9652365</telef>
+   <telef tipo="MovilTrabajo">962</telef>
  </persona>
  <persona alias="PacoPorras">
    <apellidos>Martin</apellidos>
@@ -23,7 +23,7 @@
    <apellidos>Gomez</apellidos>
    <nombre>Manomano</nombre>
    <email>emailPaco</email>
-   <telef>676</telef>
+   <telef tipo="MovilTrabajo">676</telef>
  </persona>
 </libreta>
 
