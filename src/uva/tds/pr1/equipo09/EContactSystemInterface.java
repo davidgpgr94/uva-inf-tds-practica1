@@ -1,18 +1,12 @@
-package uva.tds.pr1;
+package uva.tds.pr1.equipo09;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 public interface EContactSystemInterface {
-	public static EcontactSystemInterface contactSystemFactory();
+	//public static EContactSystemInterface contactSystemFactory();
 
-	void loadFrom(Path pathToXML) throws FileNotFoundException, ParserConfigurationException, SAXException, IOException;
+	void loadFrom(Path pathToXML);
 
 	void updateTo(Path pathToXML);
 

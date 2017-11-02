@@ -4,9 +4,14 @@ public class Contact {
 	private String id;
 	
 	public Contact(String id) {
+		if(id==null || id=="") throw new IllegalArgumentException();
 		this.id = id;
 	}
 	
+	/**
+	 * Devuelve el Id del contacto
+	 * @return
+	 */
 	public String getId() {
 		return id;
 	}
