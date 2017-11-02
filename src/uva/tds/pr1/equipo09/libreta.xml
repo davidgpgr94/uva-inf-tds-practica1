@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE libreta SYSTEM "libreta.dtd" >
+<!DOCTYPE libreta SYSTEM "src/uva/tds/pr1/equipo09/libreta.dtd" >
 <libreta>
-  <persona alias="idvalue0"/>
+ <persona alias="Danielin">
+   <apellidos>Parda</apellidos>
+   <nombre>Dani</nombre>
+   <email>emailDani</email>
+   <telef tipo="MovilPersonal">965</telef>
+ </persona>
+ <persona alias="PacoPorras">
+   <apellidos>Martin</apellidos>
+   <nombre>Paco</nombre>
+   <email>emailPaco</email>
+   <telef tipo="MovilTrabajo">978</telef>
+ </persona>
+ <grupo gNombre="Amigos">
+     <miembro alias="Danielin"/>
+ </grupo>
+  <persona alias="Manolin">
+   <apellidos>Gomez</apellidos>
+   <nombre>Manol</nombre>
+   <email>emailPaco</email>
+   <telef>676</telef>
+ </persona>
 </libreta>
