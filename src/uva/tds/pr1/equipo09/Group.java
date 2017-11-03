@@ -1,46 +1,50 @@
 package uva.tds.pr1.equipo09;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Group extends Contact {
-	
-	private ArrayList<Contact> miembros;
-	
-	/*
-	public Group (String nombre, Contact miembro) {
-		super(nombre);
-		
-		miembros = new ArrayList<Contact>();
-		añadirMiembro(miembro);
-	}
-	*/
-	
-	public Group (String nombre, Contact[] miembros) {
+
+	private Set<Contact> members; //usamos un conjunto para evitar que un mismo contacto se encuentre repetido en el grupo
+
+	public Group(String nombre, Contact[] miembros) {
 		super(nombre);
 		if (miembros == null || miembros.length == 0) throw new IllegalArgumentException();
-		this.miembros = new ArrayList<Contact>();
+		members = new HashSet<Contact>();
 		añadirMiembros(miembros);
 	}
-	
+
 	public void añadirMiembro(Contact miembro) {
-		miembros.add(miembro);
+		members.add(miembro);
 	}
-	
+
 	public void añadirMiembros(Contact[] miembros) {
 		for (int i = 0; i < miembros.length; i++) {
-			this.miembros.add(miembros[i]);			
+			añadirMiembro(miembros[i]);
 		}
 	}
-	
-	public ArrayList<Contact> getMiembros() {
-		return miembros;
+
+	public Contact[] getMiembros() {
+		return members.toArray(new Contact[1]);
 	}
 	
+
 	/**
 	 * Devuelve el nombre del grupo
 	 */
 	public String getId() {
 		return super.getId();
 	}
+	
 
+	/**
+	 * Elimina la primera ocurrencia del miembro en el grupo
+	 * 
+	 * @param miembro
+	 * @return true si el miembro pertenecía al grupo, false en caso contrario
+	 */
+	public boolean eliminarMiembro(Contact miembro) {
+		return members.remove(miembro);
+	}
+	
 }
