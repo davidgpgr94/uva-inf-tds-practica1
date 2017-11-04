@@ -19,4 +19,8 @@ public class Contact {
 	public void cambiarId(String nuevo) {
 		id = nuevo;
 	}
+
+	public boolean equals(Contact otro) {
+		return id == otro.getId();
+	}
 }
