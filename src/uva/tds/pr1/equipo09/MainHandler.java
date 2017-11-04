@@ -1,13 +1,13 @@
 package uva.tds.pr1.equipo09;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class MainHandler extends DefaultHandler {
@@ -16,10 +16,12 @@ public class MainHandler extends DefaultHandler {
 	private String idRef;
 	private String nombre;
 	private String apellido;
+	
 	private boolean siNombre;
 	private boolean siEmail;
 	private boolean siTelefono;
 	private boolean siApellido;
+	
 	private EnumKindOfPhone tipo;
 	private Map<String, EnumKindOfPhone> telefonos;
 	private List<String> emails;
@@ -69,7 +71,7 @@ public class MainHandler extends DefaultHandler {
 			idRef = attributes.getValue(0);
 			if (libreta.getContacto(idRef) != null) {
 				miembros.add(libreta.getContacto(idRef));
-			}
+			} 
 			break;
 		}
 
@@ -89,11 +91,10 @@ public class MainHandler extends DefaultHandler {
 				//System.out.println(emails.toArray(new String[1]).length);
 				per = new Person(alias, nombre, siApellido ? apellido : "", emails.toArray(new String[1]), telefonos);
 			}
+			libreta.añadirContacto(per);
 			emails = new ArrayList<String>(); // cade vez que encuentre una persona incializa un nuevo array de emails.
 			telefonos = new HashMap<String, EnumKindOfPhone>();// cade vez que encuentre una persona incializa un nuevo array de telefono.
-			libreta.añadirContacto(per);
 			break;
-
 		case "grupo":
 			Group grupo = (Group) libreta.getContacto(gNombre);
 			if (grupo == null) {
@@ -139,6 +140,21 @@ public class MainHandler extends DefaultHandler {
 			String telefono = new String(ch, start, length);
 			telefonos.put(telefono, tipo);
 		}
+	}
+	
+	@Override
+	public void error(SAXParseException e) throws SAXException {
+		throw e;
+	}
+	
+	@Override
+	public void fatalError(SAXParseException e) throws SAXException {
+		throw e;
+	}
+	
+	@Override
+	public void warning(SAXParseException e) throws SAXException {
+		throw e;
 	}
 
 	public Libreta getLibreta() {
