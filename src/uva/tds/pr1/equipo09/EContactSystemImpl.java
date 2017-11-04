@@ -1,5 +1,7 @@
 package uva.tds.pr1.equipo09;
 
+import java.util.HashMap;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,9 +44,34 @@ public class EContactSystemImpl implements EContactSystemInterface {
 			parser = factory.newSAXParser();
 			MainHandler2 handler = new MainHandler2();
 			parser.parse(source, handler);
-			libreta = handler.getLibreta(0);
-
-			/* prueba */
+			libreta = handler.getLibreta();
+			
+			//prueba
+			for (Contact contacto : libreta.getContactos().values()) {
+				if (contacto instanceof Person) {
+					Person persona = (Person) contacto;
+					System.out.println("Alias: " + persona.getId() + " nombre: " + persona.getNombre() + " apellido: " + persona.getApellido());
+					for (String email : persona.getEmails()) {
+						System.out.println("Email: " + email);
+					}
+					HashMap<String, EnumKindOfPhone> telefonos = (HashMap<String, EnumKindOfPhone>)persona.getTelefonos();
+					for (String numero : telefonos.keySet().toArray(new String[1])) {
+						System.out.println("Numero: " + numero + " tipo: " + telefonos.get(numero));
+					}
+				} else if (contacto instanceof Group) {
+					Group grupo = (Group) contacto;
+					System.out.println("-------__-------Ini-Grupo--------__-----------");
+					System.out.println("Nombre del grupo: " + grupo.getId());
+					System.out.println("Miembros");
+					for (Contact miembro : grupo.getMiembros()) {
+						System.out.println("Alias: " + miembro.getId());
+					}
+					System.out.println("-------__-------Fin-Grupo--------__-----------");
+				}
+			}
+			
+			/*
+			// prueba 
 			for (Contact con : libreta.getContactos().values()) {
 				if (con instanceof Person) {
 
@@ -63,6 +90,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 							+ ((Group) con).getMiembros().length);
 				}
 			}
+			*/
 
 			XmlLoaded = true;
 
