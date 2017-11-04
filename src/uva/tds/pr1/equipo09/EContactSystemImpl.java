@@ -44,16 +44,19 @@ public class EContactSystemImpl implements EContactSystemInterface {
 			MainHandler2 handler = new MainHandler2();
 			parser.parse(source, handler);
 			libreta = handler.getLibreta();
+			XmlLoaded = true;
 			
-			//prueba
-			for (Contact contacto : libreta.getContactos().values()) {
+			// prueba
+			/*for (Contact contacto : libreta.getContactos().values()) {
 				if (contacto instanceof Person) {
 					Person persona = (Person) contacto;
-					System.out.println("Alias: " + persona.getId() + " nombre: " + persona.getNombre() + " apellido: " + persona.getApellido());
+					System.out.println("Alias: " + persona.getId() + " nombre: " + persona.getNombre() + " apellido: "
+							+ persona.getApellido());
 					for (String email : persona.getEmails()) {
 						System.out.println("Email: " + email);
 					}
-					HashMap<String, EnumKindOfPhone> telefonos = (HashMap<String, EnumKindOfPhone>)persona.getTelefonos();
+					HashMap<String, EnumKindOfPhone> telefonos = (HashMap<String, EnumKindOfPhone>) persona
+							.getTelefonos();
 					for (String numero : telefonos.keySet().toArray(new String[1])) {
 						System.out.println("Numero: " + numero + " tipo: " + telefonos.get(numero));
 					}
@@ -67,32 +70,28 @@ public class EContactSystemImpl implements EContactSystemInterface {
 					}
 					System.out.println("-------__-------Fin-Grupo--------__-----------");
 				}
-			}
-			
+			}*/
+
 			/*
-			// prueba 
-			for (Contact con : libreta.getContactos().values()) {
-				if (con instanceof Person) {
+			 * // prueba for (Contact con : libreta.getContactos().values()) {
+			 * if (con instanceof Person) {
+			 * 
+			 * System.out.println(1 + " " + ((Person) con).getId() + " ape " +
+			 * ((Person)con).getApellido()); for (int i = 0; i < ((Person)
+			 * con).getEmails().length; i++) { System.out.println(((Person)
+			 * con).getEmails()[i]); }
+			 * 
+			 * for (EnumKindOfPhone en : ((Person) con).getTelefonos().values())
+			 * { System.out.println(en); }
+			 * 
+			 * 
+			 * } else if (con instanceof Group) { System.out.println(2 + " " +
+			 * ((Group) con).getId() + " numero de miembros " + ((Group)
+			 * con).getMiembros().length); } }
+			 */
 
-					System.out.println(1 + " " + ((Person) con).getId() + " ape " + ((Person)con).getApellido());
-					for (int i = 0; i < ((Person) con).getEmails().length; i++) {
-						System.out.println(((Person) con).getEmails()[i]);
-					}
-
-					for (EnumKindOfPhone en : ((Person) con).getTelefonos().values()) {
-						System.out.println(en);
-					}
-					
-
-				} else if (con instanceof Group) {
-					System.out.println(2 + " " + ((Group) con).getId() + " numero de miembros "
-							+ ((Group) con).getMiembros().length);
-				}
-			}
-			*/
-
-			XmlLoaded = true;
-
+			
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,28 +127,33 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	}
 
 	@Override
-	public void createNewPerson(String name, String nickname, String surName, String[] emails,
-			Map<String, EnumKindOfPhone> phones) {
-		// TODO Auto-generated method stub
-
-		
-		
-		//Despues de todo
-		modified = true;
+	public void createNewPerson(String name, String nickname, String surName, String[] emails, Map<String, EnumKindOfPhone> phones) {
+		if (libreta.getContacto(nickname) == null) {
+			Person persona = new Person(nickname, name, surName, emails, phones);
+			libreta.añadirContacto(persona);
+			modified = true;
+		} else {
+			throw new IllegalArgumentException("Ya se encuentra un contacto (grupo o persona) con el nombre \"" + nickname + "\" en la libreta");
+		}
 	}
 
 	@Override
 	public void createNewGroup(String name, Contact[] contacts) {
-		// TODO Auto-generated method stub
-
-		//Despues de todo
-		modified = true;
+		for (Contact contacto : contacts) { //Comprobamos que los contactos que se quieren añadir al grupo, existen previamente en la libreta
+			if (libreta.getContacto(contacto.getId()) == null) throw new IllegalArgumentException("El contacto con nickname \"" + contacto.getId() + "\" no se encuentra en la libreta.");
+		}
+		if (libreta.getContacto(name) == null) { //Si el nombre del nuevo grupo no se encuentra en la libreta, creamos el grupo y lo añadimos a la libreta
+			Group grupo = new Group(name, contacts);
+			libreta.añadirContacto(grupo);
+			modified = true;
+		} else {
+			throw new IllegalArgumentException("Ya se encuentra un contacto (grupo o persona) con el nombre \"" + name + "\" en la libreta");
+		}
 	}
 
 	@Override
 	public Contact getAnyContactById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return libreta.getContacto(id);
 	}
 
 	@Override
@@ -168,7 +172,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	public void addContactToGroup(Contact contact, Group group) {
 		// TODO Auto-generated method stub
 
-		//Despues de todo
+		// Despues de todo
 		modified = true;
 	}
 
@@ -176,7 +180,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	public void removeContactFromGroup(Contact contact, Group group) {
 		// TODO Auto-generated method stub
 
-		//Despues de todo
+		// Despues de todo
 		modified = true;
 	}
 
@@ -184,7 +188,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	public void removeContactFromSystem(Contact contact) {
 		// TODO Auto-generated method stub
 
-		//Despues de todo
+		// Despues de todo
 		modified = true;
 	}
 
