@@ -78,6 +78,10 @@ public class Person extends Contact {
 		return nombre; 
 	}
 	
+	public String getApellido() {
+		return apellido;
+	}
+	
 	public String[] getEmails() {
 		return emails.toArray(new String[1]);
 	}
