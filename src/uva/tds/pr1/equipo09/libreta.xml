@@ -4,22 +4,23 @@
  <persona alias="Danielin">
    <apellidos>Parda</apellidos>
    <nombre>Dani</nombre>
-   <email>emailDani</email>
-   <telef tipo="MovilPersonal">965</telef>
+   <email>email@Dani</email>
+   <telef tipo="MovilPersonal">965232323</telef>
  </persona>
  <persona alias="PacoPorras">
    <apellidos>Martin</apellidos>
    <nombre>Paco</nombre>
-   <email>emailPaco</email>
-   <telef tipo="MovilTrabajo">978</telef>
+   <email>email@Paco</email>
+   <email>email@Paco2</email>
+   <telef tipo="MovilTrabajo">978232521</telef>
  </persona>
  <grupo gNombre="Amigos">
      <miembro alias="Danielin"/>
  </grupo>
   <persona alias="Manolin">
-   <apellidos>Gomez</apellidos>
    <nombre>Manol</nombre>
-   <email>emailPaco</email>
-   <telef>676</telef>
+   <email>email@Manolo</email>
+   <telef>676154876</telef>
+   <telef tipo="FijoCasa">983458691</telef>
  </persona>
 </libreta>

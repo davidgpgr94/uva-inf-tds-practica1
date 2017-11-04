@@ -1,7 +1,5 @@
 package uva.tds.pr1.equipo09;
 
-
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,53 +17,55 @@ import org.xml.sax.helpers.DefaultHandler;
 public class EContactSystemImpl implements EContactSystemInterface {
 
 	private boolean XmlLoaded;
+	private boolean modified;
 	private FileReader input;
 	private InputSource source;
 	private SAXParserFactory factory;
 	private SAXParser parser;
-	
+
 	private Libreta libreta;
-	
-	public  EContactSystemImpl() {
-		XmlLoaded=false;
+
+	public EContactSystemImpl() {
+		XmlLoaded = false;
+		modified = false;
 	}
-	
+
 	@Override
 	public void loadFrom(Path pathToXML) {
 		// TODO Auto-generated method stub
-		
+
 		try {
 			input = new FileReader(pathToXML.toString());
-			source=  new InputSource(input);
-			factory= SAXParserFactory.newInstance();
+			source = new InputSource(input);
+			factory = SAXParserFactory.newInstance();
 			factory.setValidating(true);
-			parser= factory.newSAXParser();
-			MainHandler handler= new MainHandler();
-			parser.parse(source,handler);
-			libreta=handler.getLibreta();
-			
-			
-			/*prueba*/
+			parser = factory.newSAXParser();
+			MainHandler2 handler = new MainHandler2();
+			parser.parse(source, handler);
+			libreta = handler.getLibreta(0);
+
+			/* prueba */
 			for (Contact con : libreta.getContactos().values()) {
-				if(con instanceof Person){
-					
-					System.out.println(1+" "+((Person)con).getId());
-					for (int i = 0; i < ((Person)con).getEmails().length; i++) {
-						System.out.println( ((Person)con).getEmails()[i]);
+				if (con instanceof Person) {
+
+					System.out.println(1 + " " + ((Person) con).getId() + " ape " + ((Person)con).getApellido());
+					for (int i = 0; i < ((Person) con).getEmails().length; i++) {
+						System.out.println(((Person) con).getEmails()[i]);
+					}
+
+					for (EnumKindOfPhone en : ((Person) con).getTelefonos().values()) {
+						System.out.println(en);
 					}
 					
-					for (EnumKindOfPhone en:((Person)con).getTelefonos().values()) {
-						System.out.println( en);
-					}
-					
+
 				} else if (con instanceof Group) {
-					System.out.println(2+" "+((Group)con).getId() + " numero de miembros " + ((Group)con).getMiembros().size() );
+					System.out.println(2 + " " + ((Group) con).getId() + " numero de miembros "
+							+ ((Group) con).getMiembros().length);
 				}
 			}
-			
-			
-			XmlLoaded=true;
-			
+
+			XmlLoaded = true;
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,13 +79,13 @@ public class EContactSystemImpl implements EContactSystemInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void updateTo(Path pathToXML) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -97,20 +97,26 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	@Override
 	public boolean isModifiedAfterLoaded() {
 		// TODO Auto-generated method stub
-		return false;
+		return modified;
 	}
 
 	@Override
 	public void createNewPerson(String name, String nickname, String surName, String[] emails,
 			Map<String, EnumKindOfPhone> phones) {
 		// TODO Auto-generated method stub
+
 		
+		
+		//Despues de todo
+		modified = true;
 	}
 
 	@Override
 	public void createNewGroup(String name, Contact[] contacts) {
 		// TODO Auto-generated method stub
-		
+
+		//Despues de todo
+		modified = true;
 	}
 
 	@Override
@@ -134,22 +140,25 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	@Override
 	public void addContactToGroup(Contact contact, Group group) {
 		// TODO Auto-generated method stub
-		
+
+		//Despues de todo
+		modified = true;
 	}
 
 	@Override
 	public void removeContactFromGroup(Contact contact, Group group) {
 		// TODO Auto-generated method stub
-		
+
+		//Despues de todo
+		modified = true;
 	}
 
 	@Override
 	public void removeContactFromSystem(Contact contact) {
 		// TODO Auto-generated method stub
-		
+
+		//Despues de todo
+		modified = true;
 	}
-
-
-	
 
 }
