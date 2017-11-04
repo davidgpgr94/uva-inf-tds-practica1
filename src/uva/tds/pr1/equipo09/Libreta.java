@@ -12,8 +12,12 @@ public class Libreta {
 		contactos = new HashMap<String, Contact>();
 	}
 
-	public Map<String, Contact> getContactos() {
-		return contactos;
+//	public Map<String, Contact> getContactos() {
+//		return contactos;
+//	}
+	
+	public Contact[] getContactos() {
+		return contactos.values().toArray(new Contact[1]);
 	}
 
 	public void setContactos(Map<String, Contact> contactos) {
