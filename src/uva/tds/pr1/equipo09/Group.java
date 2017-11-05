@@ -5,11 +5,14 @@ import java.util.Set;
 
 public class Group extends Contact {
 
-	private Set<Contact> members; //usamos un conjunto para evitar que un mismo contacto se encuentre repetido en el grupo
+	private Set<Contact> members; // usamos un conjunto para evitar que un mismo
+									// contacto se encuentre repetido en el
+									// grupo
 
 	public Group(String nombre, Contact[] miembros) {
 		super(nombre);
-		if (miembros == null || miembros.length == 0) throw new IllegalArgumentException();
+		if (miembros == null || miembros.length == 0)
+			throw new IllegalArgumentException();
 		members = new HashSet<Contact>();
 		añadirMiembros(miembros);
 	}
@@ -27,7 +30,6 @@ public class Group extends Contact {
 	public Contact[] getMiembros() {
 		return members.toArray(new Contact[1]);
 	}
-	
 
 	/**
 	 * Devuelve el nombre del grupo
@@ -35,7 +37,6 @@ public class Group extends Contact {
 	public String getId() {
 		return super.getId();
 	}
-	
 
 	/**
 	 * Elimina la primera ocurrencia del miembro en el grupo
@@ -46,5 +47,5 @@ public class Group extends Contact {
 	public boolean eliminarMiembro(Contact miembro) {
 		return members.remove(miembro);
 	}
-	
+
 }
