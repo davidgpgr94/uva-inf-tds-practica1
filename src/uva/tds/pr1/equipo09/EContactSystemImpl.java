@@ -33,8 +33,6 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public void loadFrom(Path pathToXML) {
-		// TODO Auto-generated method stub
-
 		try {
 			input = new FileReader(pathToXML.toString());
 			source = new InputSource(input);
@@ -116,13 +114,11 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public boolean isXMLLoaded() {
-		// TODO Auto-generated method stub
 		return XmlLoaded;
 	}
 
 	@Override
 	public boolean isModifiedAfterLoaded() {
-		// TODO Auto-generated method stub
 		return modified;
 	}
 
@@ -158,37 +154,37 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public Person getPersonByNickname(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		if (libreta.getContacto(name) instanceof Person) {
+			return (Person)libreta.getContacto(name);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public Group getGroupByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		if (libreta.getContacto(name) instanceof Group) {
+			return (Group)libreta.getContacto(name);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public void addContactToGroup(Contact contact, Group group) {
-		// TODO Auto-generated method stub
-
-		// Despues de todo
+		libreta.añadirMiembroGrupo(contact, group);
 		modified = true;
 	}
 
 	@Override
 	public void removeContactFromGroup(Contact contact, Group group) {
-		// TODO Auto-generated method stub
-
-		// Despues de todo
+		libreta.eliminarMiembroGrupo(contact, group);
 		modified = true;
 	}
 
 	@Override
 	public void removeContactFromSystem(Contact contact) {
-		// TODO Auto-generated method stub
-
-		// Despues de todo
+		libreta.eliminarContacto(contact);
 		modified = true;
 	}
 
