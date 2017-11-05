@@ -13,55 +13,15 @@ public class Person extends Contact {
 	
 	public Person(String alias, String nombre, String apellido, String[] emails, Map<String, EnumKindOfPhone> telefonos) {
 		super(alias);
-		if(nombre==null || nombre=="") throw new IllegalArgumentException();
-		if (emails.length == 0) throw new IllegalArgumentException();
+		if(nombre==null || nombre=="") throw new IllegalArgumentException("El nombre ha de ser " + nombre==null?"no null.":"un String con valor.");
+		if (emails.length == 0) throw new IllegalArgumentException("Ha de tener al menos un email");
 		this.emails = new ArrayList<String>();
 		this.telefonos = new HashMap<String, EnumKindOfPhone>();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		añadirEmails(emails);
-		this.telefonos = telefonos;
-	}
-	
-	/*
-	public Person(String alias, String nombre, String mail) {
-		super(alias);
-		assert alias != null && nombre != null && mail != null;
-		emails = new ArrayList<String>();
-		telefonos = new HashMap<String, EnumKindOfPhone>();
-		setApellido(null);
 		setNombre(nombre);
-		añadirEmail(mail);
-	}
-	
-	public Person(String alias, String nombre, String mail, String apellido) {
-		this(alias, nombre, mail);
 		setApellido(apellido);
-	}
-	
-	public Person(String alias, String nombre, String[] emails) {
-		super(alias);
-		this.emails = new ArrayList<String>();
-		telefonos = new HashMap<String, EnumKindOfPhone>();
-		setNombre(nombre);
 		añadirEmails(emails);
-	}
-	
-	
-	public Person(String alias, String nombre, List<String> emails) {
-		super(alias);
-		this.emails = new ArrayList<String>();
-		telefonos = new HashMap<String, EnumKindOfPhone>();
-		setNombre(nombre);
-		añadirEmails(emails);
-	}
-	
-	public Person(String alias, String nombre, String[] emails, Map<String, EnumKindOfPhone> telefonos) {
-		this(alias, nombre, emails);
 		añadirTelefonos(telefonos);
 	}
-	
-	*/
 	
 	public Map<String, EnumKindOfPhone> getTelefonos() {
 		return telefonos;
@@ -87,23 +47,27 @@ public class Person extends Contact {
 	}
 	
 	public void añadirEmail(String email) {
-		this.emails.add(email);
+		if (!email.contains("@") || email == "" || email == null) {
+			throw new IllegalArgumentException("El email \"" + email + "\" no es válido.");
+		}
+		emails.add(email);
 	}
 	
 	public void añadirEmails(String[] emails) {
-		for (int i = 0; i < emails.length; i++) {
-			
-			añadirEmail(emails[i]);
+		for (String email : emails) {
+			añadirEmail(email);
 		}
 	}
 	
 	public void añadirTelefono(String numero, EnumKindOfPhone tipo) {
+		if (numero.length() != 9) throw new IllegalArgumentException("El teléfono \"" + numero + "\" no es válido.");
 		telefonos.put(numero, tipo);		
 	}
 	
-	public void añadirTelefonos(Map<String, EnumKindOfPhone> telefonos) {		
-		this.telefonos.putAll(telefonos);
-		
+	public void añadirTelefonos(Map<String, EnumKindOfPhone> telefonos) {
+		for (String numero : telefonos.keySet()) {
+			añadirTelefono(numero, telefonos.get(numero));
+		}
 	}
 	
 	private void setNombre(String nombre) {

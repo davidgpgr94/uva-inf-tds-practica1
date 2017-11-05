@@ -12,11 +12,16 @@ public class Group extends Contact {
 	public Group(String nombre, Contact[] miembros) {
 		super(nombre);
 		if (miembros == null || miembros.length == 0)
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("El grupo debe tener al menos un miembro.");
 		members = new HashSet<Contact>();
 		añadirMiembros(miembros);
 	}
 
+	/**
+	 * Añade un nuevo miembro al grupo. Si el nuevo miembro ya pertenece al grupo, el método no tiene efecto.
+	 * 
+	 * @param miembro 
+	 */
 	public void añadirMiembro(Contact miembro) {
 		members.add(miembro);
 	}
