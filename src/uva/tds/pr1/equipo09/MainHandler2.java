@@ -152,6 +152,7 @@ public class MainHandler2 extends DefaultHandler {
 	public void warning(SAXParseException e) throws SAXException {
 		throw e;
 	}
+	
 
 	/**
 	 * Devuelve la libreta seleccionada mediante el parámetro index.
@@ -176,6 +177,11 @@ public class MainHandler2 extends DefaultHandler {
 		return str.chars().allMatch(Character :: isDigit);
 	}
 	
+	/**
+	 * comprueba si el parametro es una cadena de caracteres.
+	 * @param str cadena a comprobar
+	 * @return true si el parámetro es una cadena de caracteres,false en caso contrario
+	 */
 	private boolean isAlphabetic(String str) {
 		return str.chars().allMatch(Character :: isLetter);
 	}

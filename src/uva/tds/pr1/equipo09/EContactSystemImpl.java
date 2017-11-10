@@ -1,7 +1,9 @@
 package uva.tds.pr1.equipo09;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
@@ -23,8 +25,12 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	private SAXParser parser;
 
 	private Libreta libreta;
+	
+	public static EContactSystemInterface contactSystemFactory() {
+		return new EContactSystemImpl();
+	}
 
-	public EContactSystemImpl() {
+	protected EContactSystemImpl() {
 		XmlLoaded = false;
 		modified = false;
 	}
@@ -55,7 +61,16 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public void updateTo(Path pathToXML) {
-		// TODO Auto-generated method stub
+		if(!isModifiedAfterLoaded()){
+			throw new IllegalStateException("El documento debe ser modificado para volcar en un xml");
+		}
+
+		try(BufferedWriter bf= new BufferedWriter(new FileWriter(pathToXML.toFile()))){
+			bf.write(libreta.imprimirLibreta());
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e.getMessage());
+		}
+		
 
 	}
 

@@ -2,9 +2,10 @@ package uva.tds.pr1.equipo09;
 
 public class Contact {
 	private String id;
-	
+
+
 	public Contact(String id) {
-		if(id==null || id=="") throw new IllegalArgumentException("Id no válido (" + id==null?"null":"String sin valor" + ").");
+		if(id==null || id=="") throw new IllegalArgumentException("Id no válido \"" + id==null?"null":"String sin valor" + "\".");
 		this.id = id;
 	}
 	
@@ -20,8 +21,10 @@ public class Contact {
 		if(nuevo==null || nuevo=="") throw new IllegalArgumentException("El nuevo id no es válido (" + nuevo==null?"null":"String sin valor" + ").");
 		id = nuevo;
 	}
-
-	public boolean equals(Contact otro) {
-		return id == otro.getId();
+	
+	@Override
+	public boolean equals(Object otro) {
+		if (otro == null) return false;
+		return getId() == ((Contact)otro).getId();
 	}
 }
