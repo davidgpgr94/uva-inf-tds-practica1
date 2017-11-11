@@ -103,6 +103,22 @@ public class Person extends Contact {
 		this.apellido = apellido;
 	}
 
+	@Override
+	public boolean equals(Object otro) {
+		if ( !(otro instanceof Person) ) return false;
+		if ( !(((Person)otro).getId() == this.getId()) ) return false;
+		if ( !(((Person)otro).getNombre() == this.getNombre()) ) return false;
+		if ( !(((Person)otro).getApellido() == this.getApellido()) ) return false;
+		for (String email : ((Person)otro).getEmails() ) {
+			if (!emails.contains(email)) return false;
+		}
+		for (String numero : ((Person)otro).getTelefonos().keySet() ) {
+			if (!telefonos.containsKey(numero)) return false;
+			if (telefonos.get(numero) != ((Person)otro).getTelefonos().get(numero)) return false;
+		}
+		return true;
+	}
+	
 	public String imprimirPersona() {
 		String persona = " <persona alias=\"" + getId() + "\">";
 		persona += "\n   <apellidos>" + getApellido() + "</apellidos>";
