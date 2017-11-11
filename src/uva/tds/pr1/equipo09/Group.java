@@ -82,7 +82,7 @@ public class Group extends Contact {
 	 * @param miembro Miembro a borrar del grupo.
 	 * @return true si el miembro pertenecía al grupo, false en caso contrario
 	 * @throws IllegalArgumentException El miembro no puede ser nulo.
-	 * @throws IllegalArgumentException El grupo solo tiene un miembro.
+	 * @throws IllegalStateException El grupo solo tiene un miembro.
 	 */
 	public boolean eliminarMiembro(Contact miembro) {
 		if (miembro == null) throw new IllegalArgumentException("El argumento es un null.");
