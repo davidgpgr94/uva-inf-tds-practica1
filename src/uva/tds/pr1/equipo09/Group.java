@@ -76,7 +76,7 @@ public class Group extends Contact {
 		} else return false;
 	}
 	
-	public String imprimirGrupo() {
+	public String toXmlString() {
 		String grupo =" <grupo gNombre=\""+getId()+"\">";
 		for (int i = 0; i < getMiembros().length; i++) {
 			 grupo+="\n   <miembro alias=\""+getMiembros()[i].getId()+"\">";

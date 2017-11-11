@@ -119,7 +119,7 @@ public class Person extends Contact {
 		return true;
 	}
 	
-	public String imprimirPersona() {
+	public String toXmlString() {
 		String persona = " <persona alias=\"" + getId() + "\">";
 		persona += "\n   <apellidos>" + getApellido() + "</apellidos>";
 		persona += "\n   <nombre>" + getNombre() + "</nombre>";

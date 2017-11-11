@@ -173,13 +173,13 @@ public class Libreta {
 	
 	
 
-	public String imprimirLibreta(){
+	public String toXmlString(){
 		String xml="<?xml version=\""+getXmlVersion()+"\" encoding=\""+getEncoding()+"\"?>\n";
 		xml += "<!DOCTYPE libreta SYSTEM \""+this.dtdSource+"\">\n";
 		xml += "<libreta>";
 		for (Contact  con: getContactos()){
-			if(con instanceof Person) xml+= "\n"+ ((Person)con).imprimirPersona();
-			else if(con instanceof Group) xml+= "\n"+ ((Group)con).imprimirGrupo();
+			if(con instanceof Person) xml+= "\n"+ ((Person)con).toXmlString();
+			else if(con instanceof Group) xml+= "\n"+ ((Group)con).toXmlString();
 		}
 		xml += "\n</libreta>";
 		return xml;

@@ -66,12 +66,10 @@ public class EContactSystemImpl implements EContactSystemInterface {
 		}
 
 		try(BufferedWriter bf= new BufferedWriter(new FileWriter(pathToXML.toFile()))){
-			bf.write(libreta.imprimirLibreta());
+			bf.write(libreta.toXmlString());
 		} catch (IOException e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}
-		
-
 	}
 
 	@Override
