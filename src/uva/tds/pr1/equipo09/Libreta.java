@@ -138,13 +138,14 @@ public class Libreta {
 			throw new IllegalArgumentException("El grupo \"" + grupo.getId() + "\" no se encuentra en la libreta.");
 		}
 		if ( (contactos.get(grupo.getId()) != null) && !(contactos.get(grupo.getId()) instanceof Group) ) {
+			//Si existe un contacto con el id del grupo, y dicho contacto no es un Group, entonces...
 			throw new IllegalArgumentException("Existe un contacto con el id \"" + grupo.getId() + "\" en la libreta.");
 		}
-		if(grupo.getMiembros().length==1){
-			throw new IllegalArgumentException("No puedes borrar el miembro, el grupo debe tener uno como mínimo.");
-		}
+//		if(grupo.getMiembros().length==1){
+//			throw new IllegalArgumentException("No puedes borrar el miembro, el grupo debe tener uno como mínimo. Antes se debe borrar el grupo.");
+//		}
 		grupo.eliminarMiembro(miembro);
-		contactos.remove(grupo.getId());
+		contactos.remove(grupo.getId()); //creo que no haria falta
 		contactos.put(grupo.getId(), grupo);
 	}
 	
