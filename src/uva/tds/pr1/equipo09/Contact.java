@@ -22,9 +22,13 @@ public class Contact {
 		id = nuevo;
 	}
 	
+	/**
+	 * Devuelve verdadero si los id son iguales
+	 */
 	@Override
 	public boolean equals(Object otro) {
 		if (otro == null) return false;
+		if (!(otro instanceof Contact)) return false;
 		return getId() == ((Contact)otro).getId();
 	}
 }
