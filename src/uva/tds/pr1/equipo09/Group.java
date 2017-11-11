@@ -64,6 +64,18 @@ public class Group extends Contact {
 		return  members.remove(miembro);
 	}
 
+	
+	@Override
+	public boolean equals(Object otro) {
+		if ( !(otro instanceof Group) ) return false;
+		if ( ((Group)otro).getId() == this.getId() ) {
+			for (Contact contacto : ((Group)otro).getMiembros()) {
+				if (!members.contains(contacto)) return false;
+			}
+			return true;
+		} else return false;
+	}
+	
 	public String imprimirGrupo() {
 		String grupo =" <grupo gNombre=\""+getId()+"\">";
 		for (int i = 0; i < getMiembros().length; i++) {
