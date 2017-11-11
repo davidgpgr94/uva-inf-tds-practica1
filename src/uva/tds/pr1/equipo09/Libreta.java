@@ -112,7 +112,6 @@ public class Libreta {
 	 */
 	public void añadirMiembroGrupo(Contact miembro, Group grupo) {
 		if (miembro == null || grupo == null) throw new IllegalArgumentException("Ni el miembro ni el grupo pueden ser null.");
-		
 		if (!contactos.containsValue(miembro)) {
 			throw new IllegalArgumentException("El contacto \"" + miembro.getId() + "\" no se encuentra en la libreta.");
 		}
@@ -131,6 +130,7 @@ public class Libreta {
 	
 	//Por aqui me llego revisando (grupo, person y contacto estan revisados en principio).
 	public void eliminarMiembroGrupo(Contact miembro, Group grupo) {
+		if (miembro == null || grupo == null) throw new IllegalArgumentException("Ni el miembro ni el grupo pueden ser null.");
 		if (!contactos.containsValue(miembro)) {
 			throw new IllegalArgumentException("El contacto \"" + miembro.getId() + "\" no se encuentra en la libreta.");
 		}
@@ -145,7 +145,7 @@ public class Libreta {
 //			throw new IllegalArgumentException("No puedes borrar el miembro, el grupo debe tener uno como mínimo. Antes se debe borrar el grupo.");
 //		}
 		grupo.eliminarMiembro(miembro);
-		contactos.remove(grupo.getId()); //creo que no haria falta
+		contactos.remove(grupo.getId());
 		contactos.put(grupo.getId(), grupo);
 	}
 	

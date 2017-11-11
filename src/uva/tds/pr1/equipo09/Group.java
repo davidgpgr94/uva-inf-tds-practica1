@@ -63,7 +63,6 @@ public class Group extends Contact {
 		}
 		return  members.remove(miembro);
 	}
-
 	
 	@Override
 	public boolean equals(Object otro) {

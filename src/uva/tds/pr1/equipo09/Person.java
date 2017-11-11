@@ -17,8 +17,9 @@ public class Person extends Contact {
 		if (nombre == null || nombre == "") {
 			throw new IllegalArgumentException("El nombre ha de ser " + nombre == null ? "no null." : "un String con valor.");
 		}
+		if (apellido == null) throw new IllegalArgumentException("El apellido no puede ser null (si puede ser una cadena vacía).");
 		if (emails.length == 0) { //Nos aseguramos de que al menos tenga un email
-			throw new IllegalArgumentException("Ha de tener al menos un email"); 
+			throw new IllegalArgumentException("Ha de tener al menos un email."); 
 		}
 		this.emails = new ArrayList<String>();
 		this.telefonos = new HashMap<String, EnumKindOfPhone>();
