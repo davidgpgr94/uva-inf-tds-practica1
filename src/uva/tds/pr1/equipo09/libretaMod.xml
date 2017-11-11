@@ -15,13 +15,8 @@
    <telef tipo="FijoCasa">983458691</telef>
    <telef tipo="MovilPersonal">676154876</telef>
  </persona>
- <persona alias="ginquin">
-   <apellidos>quintana</apellidos>
-   <nombre>gino</nombre>
-   <email>asdf@gmail.com</email>
- </persona>
- <grupo gNombre="amigos">
-   <miembro alias="ginquin">
+ <grupo gNombre="Enemigos">
+   <miembro alias="Manolin">
  </grupo>
  <persona alias="Danielin">
    <apellidos>Parda</apellidos>

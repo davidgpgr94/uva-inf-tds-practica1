@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.Map;
 
 public interface EContactSystemInterface {
-	//public static EContactSystemInterface contactSystemFactory();
 
 	void loadFrom(Path pathToXML);
 

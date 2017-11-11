@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,7 +15,11 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
+/**
+ * Implementación de EContactSystemInterface.
+ * @author ginquin
+ *
+ */
 public class EContactSystemImpl implements EContactSystemInterface {
 
 	private boolean XmlLoaded;
@@ -25,8 +30,12 @@ public class EContactSystemImpl implements EContactSystemInterface {
 	private SAXParser parser;
 
 	private Libreta libreta;
+	
+	public static EContactSystemInterface contactSystemFactory() {
+		return new EContactSystemImpl();
+	}
 
-	public EContactSystemImpl() {
+	protected EContactSystemImpl() {
 		XmlLoaded = false;
 		modified = false;
 	}
@@ -39,7 +48,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 			factory = SAXParserFactory.newInstance();
 			factory.setValidating(true);
 			parser = factory.newSAXParser();
-			MainHandler2 handler = new MainHandler2();
+			MainHandler handler = new MainHandler();
 			parser.parse(source, handler);
 			libreta = handler.getLibreta();
 			XmlLoaded = true;			
@@ -62,12 +71,10 @@ public class EContactSystemImpl implements EContactSystemInterface {
 		}
 
 		try(BufferedWriter bf= new BufferedWriter(new FileWriter(pathToXML.toFile()))){
-			bf.write(libreta.imprimirLibreta());
+			bf.write(libreta.toXmlString());
 		} catch (IOException e) {
 			throw new IllegalArgumentException(e.getMessage());
 		}
-		
-
 	}
 
 	@Override
@@ -82,12 +89,23 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public void createNewPerson(String name, String nickname, String surName, String[] emails, Map<String, EnumKindOfPhone> phones) {
+		if(nickname==null || nickname=="") throw new IllegalArgumentException("Nickname no válido \"" + nickname==null?"null":"String sin valor" + "\".");
+		if (name == null || name == "") {
+			throw new IllegalArgumentException("El name ha de ser " + name == null ? "no null." : "un String con valor.");
+		}
+		if (surName == null) throw new IllegalArgumentException("El surName no puede ser null (si puede ser una cadena vacía).");
+		if (emails.length == 0) { //Nos aseguramos de que al menos tenga un email
+			throw new IllegalArgumentException("Ha de tener al menos un email."); 
+		}
 		libreta.añadirContacto(new Person(nickname, name, surName, emails, phones));
 		modified = true;
 	}
 
 	@Override
 	public void createNewGroup(String name, Contact[] contacts) {
+		if(name==null || name=="") throw new IllegalArgumentException("Name no válido \"" + name==null?"null":"String sin valor" + "\".");
+		if (contacts == null || contacts.length == 0)
+			throw new IllegalArgumentException("El grupo \"" + name + "\" debe tener al menos un miembro.");
 		Group grupo = new Group(name, contacts);
 		libreta.añadirContacto(grupo);
 		modified = true;
@@ -95,11 +113,13 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public Contact getAnyContactById(String id) {
+		if (id == null || id == "") throw new IllegalArgumentException("Id no válido.");
 		return libreta.getContacto(id);
 	}
 
 	@Override
 	public Person getPersonByNickname(String name) {
+		if (name == null || name == "") throw new IllegalArgumentException("Name no válido.");
 		if (libreta.getContacto(name) instanceof Person) {
 			return (Person)libreta.getContacto(name);
 		} else {
@@ -109,6 +129,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public Group getGroupByName(String name) {
+		if (name == null || name == "") throw new IllegalArgumentException("Name no válido.");
 		if (libreta.getContacto(name) instanceof Group) {
 			return (Group)libreta.getContacto(name);
 		} else {
@@ -118,18 +139,61 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	@Override
 	public void addContactToGroup(Contact contact, Group group) {
+		if (contact == null || group == null) throw new IllegalArgumentException("Ni el contact ni el group pueden ser null.");
+		HashMap<String, Contact> contactos = new HashMap<String, Contact>(); //para facilitar las posteriores comprobaciones 
+		for (Contact contacto : libreta.getContactos()) {
+			contactos.put(contacto.getId(), contacto);
+		}
+		if (!contactos.containsValue(contact)) {
+			throw new IllegalArgumentException("El contacto \"" + contact.getId() + "\" no se encuentra en la libreta.");
+		}
+		if (!contactos.containsValue(group)) {
+			throw new IllegalArgumentException("El grupo \"" + group.getId() + "\" no se encuentra en la libreta.");
+		}
+		if ( (contactos.get(group.getId()) != null) && !(contactos.get(group.getId()) instanceof Group) ) {
+			//Si existe un contacto con el id del grupo, pero dicho contacto no es instanceof Group....
+			throw new IllegalArgumentException("Existe un contacto con el id \"" + group.getId() + "\" en la libreta.");
+		}
 		libreta.añadirMiembroGrupo(contact, group);
 		modified = true;
 	}
 
 	@Override
 	public void removeContactFromGroup(Contact contact, Group group) {
+		if (contact == null || group == null) throw new IllegalArgumentException("Ni el contact ni el group pueden ser null.");
+		HashMap<String, Contact> contactos = new HashMap<String, Contact>(); //para facilitar las posteriores comprobaciones 
+		for (Contact contacto : libreta.getContactos()) {
+			contactos.put(contacto.getId(), contacto);
+		}
+		if (!contactos.containsValue(contact)) {
+			throw new IllegalArgumentException("El contacto \"" + contact.getId() + "\" no se encuentra en la libreta.");
+		}
+		if (!contactos.containsValue(group)) {
+			throw new IllegalArgumentException("El grupo \"" + group.getId() + "\" no se encuentra en la libreta.");
+		}
+		if ( (contactos.get(group.getId()) != null) && !(contactos.get(group.getId()) instanceof Group) ) {
+			//Si existe un contacto con el id del grupo, pero dicho contacto no es instanceof Group....
+			throw new IllegalArgumentException("Existe un contacto con el id \"" + group.getId() + "\" en la libreta.");
+		}
 		libreta.eliminarMiembroGrupo(contact, group);
 		modified = true;
 	}
 
 	@Override
 	public void removeContactFromSystem(Contact contact) {
+		if (contact == null) throw new IllegalArgumentException("El argumento no puede ser null.");
+		HashMap<String, Contact> contactos = new HashMap<String, Contact>(); //para facilitar las posteriores comprobaciones 
+		for (Contact contacto : libreta.getContactos()) {
+			contactos.put(contacto.getId(), contacto);
+		}
+		if (!contactos.containsValue(contact)) {
+			throw new IllegalArgumentException("El contacto \"" + contact.getId() + "\" no se encuentra en la libreta.");
+		}
+		for (Group grupo : libreta.getGrupos()) {
+			if (grupo.contieneA(contact) && grupo.getMiembros().length == 1) {
+				throw new IllegalStateException("No se puede eliminar el contacto \"" + contact.getId() + "\" del sistema porque es el único miembro del grupo \"" + grupo.getId() + "\".");
+			}
+		}
 		libreta.eliminarContacto(contact);
 		modified = true;
 	}
