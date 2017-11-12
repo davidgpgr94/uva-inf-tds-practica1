@@ -207,7 +207,7 @@ public class Libreta {
 		}
 		grupo.añadirMiembro(miembro);
 		contactos.remove(grupo.getId());
-		contactos.put(grupo.getId(), grupo);
+		contactos.put(grupo.getId(), (Contact)grupo);
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class Libreta {
 		}
 		grupo.eliminarMiembro(miembro);
 		contactos.remove(grupo.getId());
-		contactos.put(grupo.getId(), grupo);
+		contactos.put(grupo.getId(), (Contact)grupo);
 	}
 
 	/**

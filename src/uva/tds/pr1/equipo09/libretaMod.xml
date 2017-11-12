@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE libreta SYSTEM "src/uva/tds/pr1/equipo09/libreta.dtd">
+<libreta>
+ <persona alias="PacoPorras">
+   <apellidos>Martin</apellidos>
+   <nombre>Paco</nombre>
+   <email>email@Paco</email>
+   <email>email@Paco2</email>
+   <telef tipo="MovilTrabajo">978232521</telef>
+ </persona>
+ <persona alias="Manolin">
+   <apellidos></apellidos>
+   <nombre>Manol</nombre>
+   <email>email@Manolo</email>
+   <telef tipo="FijoCasa">983458691</telef>
+   <telef tipo="MovilPersonal">676154876</telef>
+ </persona>
+ <grupo gNombre="Enemigos">
+   <miembro alias="Manolin">
+ </grupo>
+ <persona alias="Danielin">
+   <apellidos>Parda</apellidos>
+   <nombre>Dani</nombre>
+   <email>email@Dani</email>
+   <telef tipo="MovilPersonal">965232323</telef>
+ </persona>
+</libreta>
