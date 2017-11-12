@@ -16,6 +16,17 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import uva.tds.pr1.Contact;
+import uva.tds.pr1.EContactSystemInterface;
+import uva.tds.pr1.EnumKindOfPhone;
+import uva.tds.pr1.Group;
+import uva.tds.pr1.Person;
+
+/**
+ * Implementación de EContactSystemInterface.
+ * @author ginquin
+ *
+ */
 public class EContactSystemImpl implements EContactSystemInterface {
 
 	private boolean XmlLoaded;
@@ -44,7 +55,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 			factory = SAXParserFactory.newInstance();
 			factory.setValidating(true);
 			parser = factory.newSAXParser();
-			MainHandler2 handler = new MainHandler2();
+			MainHandler handler = new MainHandler();
 			parser.parse(source, handler);
 			libreta = handler.getLibreta();
 			XmlLoaded = true;			

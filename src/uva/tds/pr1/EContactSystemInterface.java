@@ -1,4 +1,4 @@
-package uva.tds.pr1.equipo09;
+package uva.tds.pr1;
 
 import java.nio.file.Path;
 import java.util.Map;
