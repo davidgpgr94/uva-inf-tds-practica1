@@ -34,8 +34,8 @@ public class Main {
 
 		// Crear nuevo grupo correcto.
 		Set<Contact> contactos = new HashSet<Contact>();
-		contactos.add(eContactImple.getPersonByNickname("ginquin"));
-		contactos.add(eContactImple.getPersonByNickname("Manolin"));
+		contactos.add((Contact)eContactImple.getPersonByNickname("ginquin"));
+		contactos.add((Contact)eContactImple.getPersonByNickname("Manolin"));
 		eContactImple.createNewGroup("Enemigos", contactos.toArray(new Contact[1]));
 
 		// Crear nuevo grupo con mismo id.
@@ -47,7 +47,7 @@ public class Main {
 
 		// Eliminar contacto de grupo
 		try {
-			eContactImple.removeContactFromGroup(eContactImple.getPersonByNickname("Danielin"),
+			eContactImple.removeContactFromGroup((Contact)eContactImple.getPersonByNickname("Danielin"),
 					eContactImple.getGroupByName("Amigos"));
 		} catch (Exception e) {
 			System.out.println(e);

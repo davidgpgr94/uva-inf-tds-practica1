@@ -83,17 +83,17 @@ public class MainHandler extends DefaultHandler {
 			//no op
 			break;
 		case "persona":
-			Person persona = (Person) libreta.getContacto(alias);
+			Person persona = (PersonImpl) libreta.getContacto(alias);
 			if (persona == null) {
-				persona = new Person(alias, nombre, apellido, emails.toArray(new String[1]), telefonos);
-				libreta.añadirContacto(persona); //solo cuando no existe previamente el contacto, porque sino podria haber duplicados (dependiendo de la implementacion de libreta.java)
+				persona = new PersonImpl(alias, nombre, apellido, emails.toArray(new String[1]), telefonos);
+				libreta.añadirContacto((Contact)persona); //solo cuando no existe previamente el contacto, porque sino podria haber duplicados (dependiendo de la implementacion de libreta.java)
 			}
 			break;
 		case "grupo":
-			Group grupo = (Group) libreta.getContacto(gNombre);
+			Group grupo = (GroupImpl) libreta.getContacto(gNombre);
 			if (grupo == null) {
-				grupo = new Group(gNombre, miembros.toArray(new Contact[1]));
-				libreta.añadirContacto(grupo);
+				grupo = new GroupImpl(gNombre, miembros.toArray(new Contact[1]));
+				libreta.añadirContacto((Contact)grupo);
 			}
 			break;
 		case "nombre":
