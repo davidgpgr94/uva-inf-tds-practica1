@@ -39,10 +39,17 @@ public class EContactSystemImpl implements EContactSystemInterface {
 
 	private Libreta libreta;
 	
+	/**
+	 * Crea una nueva instancia de EContactSystemImpl
+	 * @return una nueva instancia de EContactSystemImpl
+	 */
 	public static EContactSystemInterface contactSystemFactory() {
 		return new EContactSystemImpl();
 	}
 
+	/**
+	 * Constructor de la clase EContactSystemImpl
+	 */
 	protected EContactSystemImpl() {
 		XmlLoaded = false;
 		modified = false;

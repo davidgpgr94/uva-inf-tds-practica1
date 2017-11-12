@@ -79,7 +79,7 @@ public class Main {
 		 Group grupo1= eContactImple.getGroupByName("Enemigos");
 		 System.out.println(grupo1.getId());
 		 
-		// //Creamos un xml si ha cambiado la libreta
+		//Creamos un xml si ha cambiado la libreta
 		eContactImple.updateTo(impFile.toPath());
 		System.out.println("¿Ha sido cargado el XML? R:" + eContactImple.isXMLLoaded());
 

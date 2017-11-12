@@ -111,7 +111,7 @@ public class GroupImpl extends ContactImpl implements Group {
 	public String toXmlString() {
 		String grupo =" <grupo gNombre=\""+getId()+"\">";
 		for (int i = 0; i < getMiembros().length; i++) {
-			 grupo+="\n   <miembro alias=\""+getMiembros()[i].getId()+"\">";
+			 grupo+="\n   <miembro alias=\""+getMiembros()[i].getId()+"\"/>";
 		}
 		grupo+="\n </grupo>";
 		return grupo;

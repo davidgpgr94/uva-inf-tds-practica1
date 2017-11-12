@@ -16,7 +16,7 @@
    <telef tipo="MovilPersonal">676154876</telef>
  </persona>
  <grupo gNombre="Enemigos">
-   <miembro alias="Manolin">
+   <miembro alias="Manolin"/>
  </grupo>
  <persona alias="Danielin">
    <apellidos>Parda</apellidos>
