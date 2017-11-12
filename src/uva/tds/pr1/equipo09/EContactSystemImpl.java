@@ -105,7 +105,7 @@ public class EContactSystemImpl implements EContactSystemInterface {
 		if (emails.length == 0) { //Nos aseguramos de que al menos tenga un email
 			throw new IllegalArgumentException("Ha de tener al menos un email."); 
 		}
-		libreta.añadirContacto(new Person(nickname, name, surName, emails, phones));
+		libreta.añadirContacto(new PersonImpl(nickname, name, surName, emails, phones));
 		modified = true;
 	}
 
@@ -114,8 +114,8 @@ public class EContactSystemImpl implements EContactSystemInterface {
 		if(name==null || name=="") throw new IllegalArgumentException("Name no válido \"" + name==null?"null":"String sin valor" + "\".");
 		if (contacts == null || contacts.length == 0)
 			throw new IllegalArgumentException("El grupo \"" + name + "\" debe tener al menos un miembro.");
-		Group grupo = new Group(name, contacts);
-		libreta.añadirContacto(grupo);
+		Group grupo = new GroupImpl(name, contacts);
+		libreta.añadirContacto((Contact)grupo);
 		modified = true;
 	}
 
