@@ -25,6 +25,7 @@ import uva.tds.pr1.Person;
 /**
  * Implementación de EContactSystemInterface.
  * @author ginquin
+ * @author davidgo
  *
  */
 public class EContactSystemImpl implements EContactSystemInterface {
